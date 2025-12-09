@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { motion, Variants } from 'framer-motion';
 import { ArrowRight, Star } from 'lucide-react';
-import { Product, Image as ProductImage, Brand, Category } from '@/src/prisma';
+import { Product, Image as ProductImage, Brand, Category } from '@/src/prisma/client';
 import { ProductCardActions } from '@/components/products/product-card-actions';
 
 type FeaturedProduct = Product & {
