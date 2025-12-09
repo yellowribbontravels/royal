@@ -3,6 +3,7 @@ import { prisma } from '@/lib/prisma';
 import { clsx } from 'clsx';
 import { Search, Filter, Tag, X, ChevronRight, SlidersHorizontal } from 'lucide-react';
 import { ProductCardActions } from '@/components/products/product-card-actions';
+import { ProductFilters } from '@/components/products/product-filters';
 
 export const dynamic = 'force-dynamic';
 
@@ -138,73 +139,15 @@ export default async function ProductsPage({ searchParams }: Props) {
                             </div>
                         )}
 
-                        <div className="hidden lg:block space-y-8">
-                            {/* Categories */}
-                            <div>
-                                <h3 className="text-xs font-bold text-white uppercase tracking-[0.15em] mb-4 border-b border-white/10 pb-2 font-oswald">Categories</h3>
-                                <div className="space-y-1">
-                                    {allCategories.map(cat => (
-                                        <Link
-                                            key={cat.id}
-                                            href={`/products?categoryId=${cat.id}${brandId ? `&brandId=${brandId}` : ''}${purposeId ? `&purposeId=${purposeId}` : ''}`}
-                                            className={clsx(
-                                                "flex items-center justify-between group px-3 py-2 text-sm transition-all border-l-2",
-                                                categoryId === cat.id
-                                                    ? "border-royal-500 bg-white/5 text-white pl-4"
-                                                    : "border-transparent text-slate-400 hover:text-white hover:border-slate-600 hover:pl-4"
-                                            )}
-                                        >
-                                            <span className="uppercase tracking-wide text-xs font-semibold">{cat.name}</span>
-                                            {categoryId === cat.id && <ChevronRight size={14} className="text-royal-500" />}
-                                        </Link>
-                                    ))}
-                                </div>
-                            </div>
+                        <ProductFilters
+                            brands={allBrands}
+                            categories={allCategories}
+                            purposes={allPurposes}
+                            selectedBrandId={brandId}
+                            selectedCategoryId={categoryId}
+                            selectedPurposeId={purposeId}
+                        />
 
-                            {/* Purposes */}
-                            <div>
-                                <h3 className="text-xs font-bold text-white uppercase tracking-[0.15em] mb-4 border-b border-white/10 pb-2 font-oswald">Applications</h3>
-                                <div className="space-y-1">
-                                    {allPurposes.map(purpose => (
-                                        <Link
-                                            key={purpose.id}
-                                            href={`/products?purposeId=${purpose.id}${brandId ? `&brandId=${brandId}` : ''}${categoryId ? `&categoryId=${categoryId}` : ''}`}
-                                            className={clsx(
-                                                "flex items-center justify-between group px-3 py-2 text-sm transition-all border-l-2",
-                                                purposeId === purpose.id
-                                                    ? "border-royal-500 bg-white/5 text-white pl-4"
-                                                    : "border-transparent text-slate-400 hover:text-white hover:border-slate-600 hover:pl-4"
-                                            )}
-                                        >
-                                            <span className="uppercase tracking-wide text-xs font-semibold">{purpose.name}</span>
-                                            {purposeId === purpose.id && <ChevronRight size={14} className="text-royal-500" />}
-                                        </Link>
-                                    ))}
-                                </div>
-                            </div>
-
-                            {/* Brands */}
-                            <div>
-                                <h3 className="text-xs font-bold text-white uppercase tracking-[0.15em] mb-4 border-b border-white/10 pb-2 font-oswald">Manufacturers</h3>
-                                <div className="space-y-1">
-                                    {allBrands.map(brand => (
-                                        <Link
-                                            key={brand.id}
-                                            href={`/products?brandId=${brand.id}${categoryId ? `&categoryId=${categoryId}` : ''}${purposeId ? `&purposeId=${purposeId}` : ''}`}
-                                            className={clsx(
-                                                "flex items-center justify-between group px-3 py-2 text-sm transition-all border-l-2",
-                                                brandId === brand.id
-                                                    ? "border-royal-500 bg-white/5 text-white pl-4"
-                                                    : "border-transparent text-slate-400 hover:text-white hover:border-slate-600 hover:pl-4"
-                                            )}
-                                        >
-                                            <span className="uppercase tracking-wide text-xs font-semibold">{brand.name}</span>
-                                            {brandId === brand.id && <ChevronRight size={14} className="text-royal-500" />}
-                                        </Link>
-                                    ))}
-                                </div>
-                            </div>
-                        </div>
                     </aside>
 
                     {/* Product Grid / Groups */}
