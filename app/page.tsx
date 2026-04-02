@@ -12,6 +12,10 @@ export const metadata: Metadata = {
   description: 'Authorized distributor for Loctite, CRC, 3M, and industrial maintenance solutions in Secunderabad. Genuine products, technical expertise.',
 };
 
+export const revalidate = 0;
+
+export const dynamic = 'force-dynamic';
+
 export default async function Home() {
   // Fetch featured products (random selection via priority)
   const featuredProducts = await prisma.product.findMany({
